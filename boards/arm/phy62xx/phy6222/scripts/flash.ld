@@ -5,7 +5,7 @@ MEMORY
   jumptbl (rwx) : ORIGIN = 0x1fff0000, LENGTH = 1K
   gcfgtbl  (rwx) : ORIGIN = 0x1fff0400, LENGTH = 1K
   flash (rx) : ORIGIN = 0x1100e000, LENGTH = 256K
-  sram (rwx) : ORIGIN = 0x1fff1c00, LENGTH = 58K
+  sram (rwx) : ORIGIN = 0x1fff1880, LENGTH = 59264
 }
 
 OUTPUT_ARCH(arm)

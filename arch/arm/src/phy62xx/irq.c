@@ -207,7 +207,9 @@ int irq_priority(int irqid, uint8_t priority)
 
 void LL_IRQHandler1(void);
 void TIM1_IRQHandler1(void);
+void TIM2_IRQHandler1(void);
 void TIM3_IRQHandler1(void);
+void TIM5_IRQHandler1(void);
 
 void up_irqinitialize(void)
 {
@@ -311,7 +313,9 @@ void up_irqinitialize(void)
 
   irq_attach(PHY62XX_IRQ_BB_IRQn, (xcpt_t)LL_IRQHandler1, NULL);
   irq_attach(PHY62XX_IRQ_TIM1_IRQn, (xcpt_t)TIM1_IRQHandler1, NULL);
+  irq_attach(PHY62XX_IRQ_TIM2_IRQn, (xcpt_t)TIM2_IRQHandler1, NULL);
   irq_attach(PHY62XX_IRQ_TIM3_IRQn, (xcpt_t)TIM3_IRQHandler1, NULL);
+  irq_attach(PHY62XX_IRQ_TIM5_IRQn, (xcpt_t)TIM5_IRQHandler1, NULL);
   irq_priority((IRQn_Type)BB_IRQn,    IRQ_PRIO_REALTIME);
   irq_priority((IRQn_Type)TIM1_IRQn,  IRQ_PRIO_HIGH);     /* ll_EVT */
   irq_priority((IRQn_Type)TIM2_IRQn,  IRQ_PRIO_HIGH);     /* OSAL_TICK */
@@ -325,6 +329,7 @@ void up_irqinitialize(void)
                                                           /* OSAL_TICK */
 
   NVIC_EnableIRQ((IRQn_Type)TIM3_IRQn);
+  NVIC_EnableIRQ((IRQn_Type)TIM5_IRQn);
 
   /* NVIC_EnableIRQ((IRQn_Type)TIM4_IRQn); */
 
