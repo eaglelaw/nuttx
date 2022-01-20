@@ -58,7 +58,8 @@ ifeq ($(CONFIG_PHY6222_BLE),y)
 #CHIP_CSRCS += phy62xx_ble_patch.c phy62xx_ble_hci_event_patch.c rf_phy_driver.c
 #CHIP_CSRCS += phy62xx_ble.c phy62xx_ble_patch.c rf_phy_driver.c
 CHIP_CSRCS += phy62xx_ble.c
-EXTRA_LIBS += -lphy62xxble
+
+
 endif
 
 ifeq ($(CONFIG_TIMER),y)
@@ -121,6 +122,7 @@ context:: .buildlib
 LDFLAGS += -Map="../../../phyplus_build.map"
 
 ifndef CONFIG_PHY6222_SDK
+EXTRA_LIBPATHS += -L$(TOPDIR)/arch/arm/src/chip
 EXTRA_LIBS += -lphy62xxble
 else
 EXTRA_LIBPATHS += -L$(TOPDIR)/../apps/phy6222/bbb_sdk/lib
