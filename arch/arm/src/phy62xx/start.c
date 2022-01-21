@@ -37,8 +37,8 @@
 
 #include "start.h"
 #include "clock.h"
-#include "flash.h"
 #include "log.h"
+#include "flash.h"
 #include "jump_function.h"
 
 /* #include "rf_phy_driver.h" */
@@ -52,7 +52,7 @@ extern const uint32_t _sramscttext;
 extern const uint32_t _eramscttext;
 
 extern const uint32_t _sjtblss;
-extern uint32_t _sjtbls;
+extern const uint32_t _sjtbls;
 extern const uint32_t _ejtbls;
 
 #define IDLE_STACK ((uint32_t)&_ebss+CONFIG_IDLETHREAD_STACKSIZE)
@@ -97,9 +97,11 @@ extern uint32_t *jump_table_base[];
 extern volatile sysclk_t g_system_clk;
 void c_start(void)
 {
-  const uint32_t *src;
-  uint32_t *dest;
-
+  //const uint32_t *src;
+  //uint32_t *dest;
+  const uint8_t *src;
+  uint8_t *dest;
+  uint8_t *edest;
   /* Configure the uart so that we can get debug output as soon as possible */
 
   /* set stack to main stack point */
@@ -108,8 +110,10 @@ void c_start(void)
 
   HAL_CRITICAL_SECTION_INIT();
 
-  g_system_clk = SYS_CLK_DLL_48M;
-  clk_init(SYS_CLK_DLL_48M);
+  /* g_system_clk = SYS_CLK_DLL_48M; */
+
+  g_system_clk = SYS_CLK_DBL_32M;
+  clk_init(SYS_CLK_DBL_32M);
 
   /* clk_init(SYS_CLK_XTAL_16M); */
 #if 1
@@ -118,11 +122,13 @@ void c_start(void)
   /* Clear .bss.  We'll do this inline (vs. calling memset) just to be
    * certain that there are no issues with the state of global variables.
    */
-
-  for (dest = &_sbss; dest < &_ebss; )
-    {
-      *dest++ = 0;
-    }
+  dest = &_sbss;
+  edest = &_ebss;
+  osal_memset(dest, 0, edest - dest);
+  //for (dest = &_sbss; dest < &_ebss; )
+  //  {
+  //    *dest++ = 0;
+  //  }
 
   /* showprogress('B'); */
 
@@ -132,10 +138,14 @@ void c_start(void)
    * end of all of the other read-only data (.text, .rodata) at _eronly.
    */
 
-  for (src = &_eronly, dest = &_sdata; dest < &_edata; )
-    {
-      *dest++ = *src++;
-    }
+  src = &_eronly;
+  dest = &_sdata;
+  edest = &_edata;
+  osal_memcpy(dest, src, edest - dest);
+  //for (src = &_eronly, dest = &_sdata; dest < &_edata; )
+  //  {
+  //    *dest++ = *src++;
+  //  }
 
   /* showprogress('C'); */
 
@@ -144,17 +154,30 @@ void c_start(void)
    *   *dest++ = *src++;
    *  }
    */
-
-  for (src = &_sjtblss, dest = &_sjtbls; dest < &_ejtbls; )
-    {
-      *dest++ = *src++;
-    }
+  src = &_sjtblss;
+  dest = &_sjtbls;
+  edest = &_ejtbls;
+  osal_memcpy(dest, src, edest - dest);
+  //osal_memcpy(&_sjtbls, &_sjtblss, _ejtbls - _sjtbls);
+  //for (src = &_sjtblss, dest = &_sjtbls; dest < &_ejtbls; )
+  //{
+  //  *dest++ = *src++;
+  //}
 
   /* showprogress('J'); */
 
   /* Perform early serial initialization */
+  //hal_cache_init();
+  {
+    xflash_Ctx_t cfg =
+    {
+        .spif_ref_clk   =   SYS_CLK_DLL_64M,
+        .rd_instr       =   XFRD_FCMD_READ_DUAL
+    };
+    hal_spif_cache_init(cfg);
 
-  hal_gpio_init();
+  }
+  //hal_gpio_init();
   LOG_INIT();
   showprogress('A');
 #ifdef USE_EARLYSERIALINIT

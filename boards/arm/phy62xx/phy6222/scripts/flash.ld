@@ -110,6 +110,10 @@ SECTIONS
         *libphy6222_rf.a:patch.o(.text.ll_processBasicIRQ_ScanTRX0)
         *libphy6222_rf.a:patch.o(.text.ll_processBasicIRQ_SRX0)
         *libphy6222_rf.a:patch.o(.text.ll_hw_read_rfifo1)
+		
+		*libapps.a:flash.c.*.o(.text .text.*)
+		*libapps.a:*.o(.text.drv_disable_irq1)
+		*libapps.a:*.o(.text.drv_enable_irq1)
 
         *rf_phy_driver.o(.text.rf_phy_get_pktFoot)
         *rf_phy_driver.o(.text.rf_phy_change_cfg0 )

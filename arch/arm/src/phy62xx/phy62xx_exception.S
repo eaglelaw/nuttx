@@ -346,6 +346,23 @@ exception_common_inline:
  *   Shouldn't happen
  *
  ****************************************************************************/
+/****************************************************************************
+ *  Name: g_intstackalloc/g_intstacktop
+ *
+ * Description:
+ *   Shouldn't happen
+ *
+ ****************************************************************************/
 
+#if CONFIG_ARCH_INTERRUPTSTACK > 3
+	.bss
+	.global	g_intstackalloc
+	.global	g_intstacktop
+	.balign	4
+g_intstackalloc:
+	.skip	(CONFIG_ARCH_INTERRUPTSTACK & ~3)
+g_intstacktop:
+	.size	g_intstackalloc, .-g_intstackalloc
+#endif
 
 	.end
