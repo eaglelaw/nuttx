@@ -62,7 +62,7 @@ SECTIONS
     .data : {
         _sdata = ABSOLUTE(.);
         _stextram = ABSOLUTE(.);
-        *flash.o(.text .text.*)
+        *libarch.a:*flash.o(.text .text.*)
 		*libarch.a:phy62xx_exception.o(.text .text.*)
 		*libarch.a:irq.o(.text.arm_ack_irq)
 		*phy62xx_ble_patch.o(.text .text.*)
@@ -111,6 +111,16 @@ SECTIONS
         *libphy6222_rf.a:patch.o(.text.ll_processBasicIRQ_SRX0)
         *libphy6222_rf.a:patch.o(.text.ll_hw_read_rfifo1)
 		
+        *libphy6222_rf.a:patch.o(.text.LL_set_default_conn_params1)
+        *libphy6222_rf.a:patch.o(.text.llConnTerminate1)
+        *libphy6222_rf.a:patch.o(.text.config_RTC1)
+        *libphy6222_rf.a:patch.o(.text.wakeup_init1)
+        *libphy6222_rf.a:patch.o(.text.LL_ENC_AES128_Encrypt1)
+        *libphy6222_rf.a:patch.o(.text.LL_ENC_Encrypt1)
+        *libphy6222_rf.a:patch.o(.text.LL_ENC_Decrypt1)
+        *libphy6222_rf.a:patch.o(.text.ll_processBasicIRQ_secondaryScanSRX)
+        *libphy6222_rf.a:patch.o(.text.llProcessSlaveControlProcedures1)
+		
 		*libapps.a:flash.c.*.o(.text .text.*)
 		*libapps.a:*.o(.text.drv_disable_irq1)
 		*libapps.a:*.o(.text.drv_enable_irq1)
@@ -132,8 +142,8 @@ SECTIONS
         *libarch.a:phy62xx_ble.o(.text.pplus_ble_recv_cb_h4 .text.pplus_ble_recv_cb_acl)
         *libarch.a:phy62xx_ble.o(.text.pplus_ble_recv_msg )
         *libarch.a:arm_doirq.o(.text.arm_doirq )
-        *libarch.a:arm_hardfault.o(.text.arm_hardfault )
-        *libarch.a:irq_dispatch.o(.text.irq_dispatch )
+        *libarch.a:phy62xx_hardfault.o(.text.arm_hardfault )
+        *libsched.a:irq_dispatch.o(.text.irq_dispatch )
 		
         *libsched.a:clock_initialize.o(.text.clock_timer)
         *libsched.a:sched_processtimer.o(.text.nxsched_process_timer)
@@ -142,6 +152,7 @@ SECTIONS
         *libsched.a:sched_yield.o(.text .text.*)
         *libsched.a:sched_lock.o(.text .text.*)
         *libsched.a:sched_unlock.o(.text .text.*)
+		
 
         *libdrivers.a:uart_bth4.o(.text.uart_bth4_pollnotify)
         *libdrivers.a:uart_bth4.o(.text.uart_bth4_post)
@@ -151,6 +162,9 @@ SECTIONS
 		
         *libmm.a:circbuf.o(.text .text.*)
 		
+		*libc.a:lib_libvsprintf.o(.text .text.*)
+		*libc.a:lib_printf.o(.text .text.*)
+		*libc.a:lib_vfprintf.o(.text .text.*)
 		*libc.a:lib_skipspace.o(.text .text.*)
         *libc.a:lib_sprintf.o(.text .text.*)
         *libc.a:lib_strlen.o(.text .text.*)
