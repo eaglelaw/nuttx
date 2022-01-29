@@ -129,6 +129,7 @@ CHIP_CSRCS += clock.c
 else
 EXTRA_LIBPATHS += -L$(TOPDIR)/../apps/phy6222/bbb_sdk/lib
 EXTRA_LIBS += -lphy6222_rf
+EXTRA_LIBS += -lphy6222_sec_boot
 EXTRA_LIBS += -lphy6222_host
 endif
 
