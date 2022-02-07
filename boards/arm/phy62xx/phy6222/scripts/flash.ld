@@ -120,6 +120,11 @@ SECTIONS
         *libphy6222_rf.a:patch.o(.text.LL_ENC_Decrypt1)
         *libphy6222_rf.a:patch.o(.text.ll_processBasicIRQ_secondaryScanSRX)
         *libphy6222_rf.a:patch.o(.text.llProcessSlaveControlProcedures1)
+        *libphy6222_rf.a:patch.o(.text.llCalcMaxScanTime1)
+        *libphy6222_rf.a:patch.o(.text.LL_SetAdvControl1)
+        *libphy6222_rf.a:patch.o(.text.llSetupSecAdvEvt1)
+        *libphy6222_rf.a:patch.o(.text.ll_scheduler2)
+        *libphy6222_rf.a:patch.o(.text.llSetupNextSlaveEvent1)
 		
 		*libapps.a:flash.c.*.o(.text .text.*)
 		*libapps.a:*.o(.text.drv_disable_irq1)
