@@ -43,6 +43,9 @@
 
 /* #include "rf_phy_driver.h" */
 
+extern void* osal_memcpy( void*, const void *, unsigned int );
+extern void* osal_memset( void* dest, uint8 value, int len );
+
 /****************************************************************************
  * Pre-processor Definitions
  ****************************************************************************/
@@ -99,7 +102,7 @@ void c_start(void)
 {
   //const uint32_t *src;
   //uint32_t *dest;
-  const uint8_t *src;
+  uint8_t *src;
   uint8_t *dest;
   uint8_t *edest;
   /* Configure the uart so that we can get debug output as soon as possible */
@@ -122,8 +125,8 @@ void c_start(void)
   /* Clear .bss.  We'll do this inline (vs. calling memset) just to be
    * certain that there are no issues with the state of global variables.
    */
-  dest = &_sbss;
-  edest = &_ebss;
+  dest = (uint8_t *)(&_sbss);
+  edest = (uint8_t *)(&_ebss);
   osal_memset(dest, 0, edest - dest);
   //for (dest = &_sbss; dest < &_ebss; )
   //  {
@@ -138,9 +141,9 @@ void c_start(void)
    * end of all of the other read-only data (.text, .rodata) at _eronly.
    */
 
-  src = &_eronly;
-  dest = &_sdata;
-  edest = &_edata;
+  src = (uint8_t *)(&_eronly);
+  dest = (uint8_t *)(&_sdata);
+  edest = (uint8_t *)(&_edata);
   osal_memcpy(dest, src, edest - dest);
   //for (src = &_eronly, dest = &_sdata; dest < &_edata; )
   //  {
@@ -154,9 +157,9 @@ void c_start(void)
    *   *dest++ = *src++;
    *  }
    */
-  src = &_sjtblss;
-  dest = &_sjtbls;
-  edest = &_ejtbls;
+  src = (uint8_t *)(&_sjtblss);
+  dest = (uint8_t *)(&_sjtbls);
+  edest = (uint8_t *)(&_ejtbls);
   osal_memcpy(dest, src, edest - dest);
   //osal_memcpy(&_sjtbls, &_sjtblss, _ejtbls - _sjtbls);
   //for (src = &_sjtblss, dest = &_sjtbls; dest < &_ejtbls; )

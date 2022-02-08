@@ -45,7 +45,7 @@ typedef uint8           halDataAlign_t; /* !< Used for byte alignment */
 
 #define    BIT(n)      (1ul << (n))
 
-#define write_reg(addr,data)      (*(volatile unsigned int  *)(addr) = (unsigned int)(data))
+#define write_reg(addr,data)      ((*(volatile unsigned int  *)(addr)) = (unsigned int)(data))
 #define read_reg(addr)            (*(volatile unsigned int  *)(addr))
 
 /* bit operations */
