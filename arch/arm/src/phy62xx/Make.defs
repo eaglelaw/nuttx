@@ -128,7 +128,13 @@ CHIP_CSRCS += flash.c
 CHIP_CSRCS += clock.c 
 else
 EXTRA_LIBPATHS += -L$(TOPDIR)/../apps/phy6222/bbb_sdk/lib
+
+ifdef CONFIG_PHYAPP_SBPADVSCAN
+EXTRA_LIBS += -lphy6222_rf_advscan
+else
 EXTRA_LIBS += -lphy6222_rf
+endif
+
 EXTRA_LIBS += -lphy6222_sec_boot
 EXTRA_LIBS += -lphy6222_host
 endif
