@@ -125,6 +125,8 @@ SECTIONS
         *libphy6222_rf.a:patch.o(.text.llSetupSecAdvEvt1)
         *libphy6222_rf.a:patch.o(.text.ll_scheduler2)
         *libphy6222_rf.a:patch.o(.text.llSetupNextSlaveEvent1)
+        *libphy6222_rf.a:patch.o(.text.up_irq_save_s)
+        *libphy6222_rf.a:patch.o(.text.up_irq_restore_s)
 		
 		*libapps.a:flash.c.*.o(.text .text.*)
 		*libapps.a:*.o(.text.drv_disable_irq1)
