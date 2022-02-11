@@ -62,6 +62,7 @@ SECTIONS
     .data : {
         _sdata = ABSOLUTE(.);
         _stextram = ABSOLUTE(.);
+		*.o(_section_standby_code_)
         *libarch.a:*flash.o(.text .text.*)
 		*libarch.a:phy62xx_exception.o(.text .text.*)
 		*libarch.a:irq.o(.text.arm_ack_irq)
