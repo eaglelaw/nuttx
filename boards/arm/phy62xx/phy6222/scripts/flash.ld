@@ -4,7 +4,7 @@ MEMORY
 {
   jumptbl (rwx) : ORIGIN = 0x1fff0000, LENGTH = 1K
   gcfgtbl  (rwx) : ORIGIN = 0x1fff0400, LENGTH = 1K
-  flash (rx) : ORIGIN = 0x1100e000, LENGTH = 256K
+  flash (rx) : ORIGIN = 0x1100e000, LENGTH = 384K
   sram (rwx) : ORIGIN = 0x1fff1880, LENGTH = 59264
 }
 
@@ -64,9 +64,9 @@ SECTIONS
         _stextram = ABSOLUTE(.);
 		*.o(_section_standby_code_)
         *libarch.a:*flash.o(.text .text.*)
-		*libarch.a:phy62xx_exception.o(.text .text.*)
-		*libarch.a:irq.o(.text.arm_ack_irq)
-		*phy62xx_ble_patch.o(.text .text.*)
+	*libarch.a:phy62xx_exception.o(.text .text.*)
+	*libarch.a:irq.o(.text.arm_ack_irq)
+	*phy62xx_ble_patch.o(.text .text.*)
         //*libarch.a:phy62xx_ble_patch.o(.text.ll_hw_go1)
         //*libarch.a:phy62xx_ble_patch.o(.text.TIM1_IRQHandler1)
         //*libarch.a:phy62xx_ble_patch.o(.text.LL_IRQHandler1)
@@ -129,9 +129,9 @@ SECTIONS
         *libphy6222_rf.a:patch.o(.text.up_irq_save_s)
         *libphy6222_rf.a:patch.o(.text.up_irq_restore_s)
 		
-		*libapps.a:flash.c.*.o(.text .text.*)
-		*libapps.a:*.o(.text.drv_disable_irq1)
-		*libapps.a:*.o(.text.drv_enable_irq1)
+	*libapps.a:flash.c.*.o(.text .text.*)
+	*libapps.a:*.o(.text.drv_disable_irq1)
+	*libapps.a:*.o(.text.drv_enable_irq1)
 
         *rf_phy_driver.o(.text.rf_phy_get_pktFoot)
         *rf_phy_driver.o(.text.rf_phy_change_cfg0 )
@@ -166,14 +166,14 @@ SECTIONS
         *libdrivers.a:uart_bth4.o(.text.uart_bth4_post)
         *libdrivers.a:uart_bth4.o(.text.uart_bth4_receive)
 		
-		*libarch.a:uart.o(.text .text.*)
+	*libarch.a:uart.o(.text .text.*)
 		
         *libmm.a:circbuf.o(.text .text.*)
 		
-		*libc.a:lib_libvsprintf.o(.text .text.*)
-		*libc.a:lib_printf.o(.text .text.*)
-		*libc.a:lib_vfprintf.o(.text .text.*)
-		*libc.a:lib_skipspace.o(.text .text.*)
+	*libc.a:lib_libvsprintf.o(.text .text.*)
+	*libc.a:lib_printf.o(.text .text.*)
+	*libc.a:lib_vfprintf.o(.text .text.*)
+	*libc.a:lib_skipspace.o(.text .text.*)
         *libc.a:lib_sprintf.o(.text .text.*)
         *libc.a:lib_strlen.o(.text .text.*)
         *libc.a:lib_memcmp.o(.text .text.*)
@@ -181,7 +181,7 @@ SECTIONS
         *libc.a:lib_memset.o(.text .text.*)
         *libc.a:lib_memmove.o(.text .text.*)
         
-		*libapps.a:zblue.o(.text.k_yield .text.k_sleep .text.z_tick_get)
+	*libapps.a:zblue.o(.text.k_yield .text.k_sleep .text.z_tick_get)
 
         _etextram = ABSOLUTE(.);
 
