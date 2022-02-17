@@ -125,7 +125,6 @@ int arm_hardfault(int irq, FAR void *context, FAR void *arg)
 
   up_irq_save();
   hfalert("PANIC!!! Hard fault\n");
-  while(1){;}
-  //PANIC();
+  PANIC();
   return OK; /* Won't get here */
 }

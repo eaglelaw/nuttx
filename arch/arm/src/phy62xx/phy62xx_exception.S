@@ -47,8 +47,9 @@ exception_common:
 
 	/* Complete the context save */
 
+	pop     {r4}
 	mrs		r1, msp
-	add		r1, #8
+	add		r1, #4
 	msr		msp, r1
 	/* Get the current stack pointer.  The EXC_RETURN value tells us whether
 	 * the context is on the MSP or PSP.
@@ -339,13 +340,6 @@ exception_common_inline:
 
 	.size	exception_common_inline, .-exception_common_inline
 
-/****************************************************************************
- *  Name: g_intstackalloc/g_intstacktop
- *
- * Description:
- *   Shouldn't happen
- *
- ****************************************************************************/
 /****************************************************************************
  *  Name: g_intstackalloc/g_intstacktop
  *
