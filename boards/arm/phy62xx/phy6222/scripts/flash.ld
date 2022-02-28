@@ -151,6 +151,8 @@ SECTIONS
         *libarch.a:phy62xx_ble.o(.text.pplus_ble_recv_msg )
         *libarch.a:arm_doirq.o(.text.arm_doirq )
         *libarch.a:phy62xx_hardfault.o(.text.arm_hardfault )
+        *libarch.a:irq.o(.text.up_enable_irq )
+        *libarch.a:irq.o(.text.up_disable_irq )
         *libsched.a:irq_dispatch.o(.text.irq_dispatch )
 		
         *libsched.a:clock_initialize.o(.text.clock_timer)
