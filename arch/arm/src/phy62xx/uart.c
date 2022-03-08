@@ -348,6 +348,15 @@ int hal_uart_txint_en(UART_INDEX_e uart_index, bool en)
 
 extern uint32_t sysclk_get_clk(void);
 
+static int hal_uart_interrupt(int irq, void *context, FAR void *arg)
+{
+  if(irq == PHY62XX_IRQ_UART0_IRQn)
+    hal_UART0_IRQHandler();
+  else
+    hal_UART1_IRQHandler();
+}
+
+
 int uart_hw_init(UART_INDEX_e uart_index)
 {
   uart_Cfg_t *pcfg;
@@ -423,6 +432,7 @@ int uart_hw_init(UART_INDEX_e uart_index)
   if (pcfg->use_tx_buf)
       cur_uart->IER |= IER_ETBEI;
 
+  irq_attach(irq_type, hal_uart_interrupt, NULL);
   NVIC_SetPriority(irq_type, IRQ_PRIO_HAL);
   NVIC_EnableIRQ(irq_type);
   return PPlus_SUCCESS;
