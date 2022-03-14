@@ -54,7 +54,7 @@ ifeq ($(CONFIG_DEBUG_FEATURES),y)
 CMN_CSRCS += arm_dumpnvic.c
 endif
 
-CHIP_CSRCS  = start.c irq.c timer.c uart.c idle.c my_printf.c
+CHIP_CSRCS  = start.c irq.c timer.c idle.c 
 CHIP_CSRCS += jump_table.c
 CHIP_CSRCS += pplus_mtd_flash.c
 ifeq ($(CONFIG_PHY6222_BLE),y)
@@ -134,6 +134,8 @@ CHIP_CSRCS += flash.c
 CHIP_CSRCS += clock.c 
 CHIP_CSRCS += gpio.c
 CHIP_CSRCS += pwrmgr.c 
+CHIP_CSRCS += uart.c
+CHIP_CSRCS += my_printf.c
 else
 EXTRA_LIBPATHS += -L$(TOPDIR)/../apps/phy6222/bbb_sdk/lib
 ifdef CONFIG_PHYAPP_SBPADVSCAN
