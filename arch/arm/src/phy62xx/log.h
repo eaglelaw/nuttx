@@ -40,7 +40,7 @@ extern "C"
  ****************************************************************************/
 
 #include "uart.h"
-void dbg_printf_(const char *format, ...);
+void dbg_printf(const char *format, ...);
 void dbg_printf_init(void);
 void my_dump_byte(uint8_t *pData, int dlen);
 #ifndef DEBUG_INFO
